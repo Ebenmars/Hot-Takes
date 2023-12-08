@@ -1,0 +1,30 @@
+.body{
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    font-size: 42px;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p{
+    font-size: 18px;
+    line-height:1.5;
+    font-family:'Times New Roman', Times, serif;
+    font-family: 'Inter', sans-serif;
+}
+
+#topic{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+ul{
+    list-style: none;
+    font-family: 'Inter', sans-serif;
+}
