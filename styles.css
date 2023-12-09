@@ -1,6 +1,8 @@
-.body{
+body{
     padding: 0;
     margin: 0;
+   background-color: #262626;
+   color:white;
 }
 
 h1{
@@ -10,14 +12,14 @@ h1{
     font-family: 'Montserrat', sans-serif;
 }
 
-p{
+.post-on-feed{
     font-size: 18px;
     line-height:1.5;
     font-family:'Times New Roman', Times, serif;
     font-family: 'Inter', sans-serif;
 }
 
-#topic{
+.topic{
     text-transform: uppercase;
     font-weight: bold;
     font-size: 14px;
