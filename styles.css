@@ -11,6 +11,9 @@ body {
     padding: 48px 65px;
 }
 
+.hidden{
+    display:none !important;
+}
 .container {
     max-width: 1500px;
     margin: 0 auto;
@@ -23,6 +26,10 @@ body {
     align-items: center;
     padding: 10px;
     justify-content: space-between;
+}
+
+.header h1{
+    font-style: italic;
 }
 
 h6 {
