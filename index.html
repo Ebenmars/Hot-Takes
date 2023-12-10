@@ -10,15 +10,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@400;600;700&family=Open+Sans:ital,wght@1,300&display=swap"
         rel="stylesheet">
+        <script src="https://kit.fontawesome.com/d5a58a8dfa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <header>
-        <h1>Sport Forum</h1>
-        <button>add post</button>
+    <div class="container">
+    <header class="header">
+        <div class="logo">
+            <h1>Sport Forum</h1>
+
+        </div>
+        <button class="btn">add post</button>
     </header>
-    <form>
+    <form class="post-form">
         <input type="text" placeholder="Title">
         <input type="text" placeholder="Description">
         <span>word count</span>
@@ -31,49 +36,53 @@
             <option value="f1">F1</option>
             <option value="rugby">Rugby</option>
         </select>
-        <button>upload</button>
+        <button class="btn">Post</button>
     </form>
-    <main>
-        <aside>
-            <ul>
-
-                <li><button>Home</button></li>
-                <li><button>Soccer</button></li>
-                <li><button>Basketball</button></li>
-                <li><button>Football</button></li>
-                <li><button>F1</button></li>
-                <li><button>Rugby</button></li>
-            </ul>
-        </aside>
+    <main class="main">
+       
         <section>
             <ul>
-                <li>
-                    <p class="post-on-feed">
+                <li class="post-on-feed">
+                    <h6>
                         Lebron has the most points in NBA history
-                        <span>(time)</span>
-                        <span class="topic">*basketball</span>
 
+                    </h6>
+                    <span>(time)</span>
+                    <span class="tag" style="background-color: #f18701;">*basketball</span>
+                    <div class="vote-buttons">
+                        <button><i class="fa-regular fa-thumbs-up"></i> <strong>100</strong></button>
+                        <button><i class="fa-regular fa-thumbs-down"></i> <strong>14</strong></button>
+                    </div>
                 </li>
-                <div>
-                    <button>👍 <strong>100</strong></button>
-                    <button>👎 <strong>14</strong></button>
-                </div>
-                </p>
-                <li>
-                    <p class="post-on-feed">
-                        Ronaldo is the best soccer player in history
-                        <span>(time)</span>
-                        <span class="topic">*soccer</span>
 
-                    </p>
-                    <div>
-                        <button>👍 <strong>100</strong></button>
-                        <button>👎 <strong>14</strong></button>
+                <li class="post-on-feed">
+                    <h6>
+                        Ronaldo is the best soccer player in history
+                    </h6>
+                    <span>(time)</span>
+                    <span class="tag" style="background-color: #fefae0; color: #000000;">*soccer</span>
+                    <div class="vote-buttons">
+                        <button><i class="fa-regular fa-thumbs-up"></i> <strong>100</strong></button>
+                        <button><i class="fa-regular fa-thumbs-down"></i> <strong>14</strong></button>
                     </div>
                 </li>
             </ul>
+           
         </section>
+        <aside class="sidebar">
+            <ul>
+
+                <li><button class="btn" style="background-color: #c5bb76; color: #000000; margin-bottom: 20px;">Home</button></li>
+                <li><button class="btn"   style="background-color: #fefae0; color: #000000;">Soccer</button></li>
+                <li><button class="btn"  style="background-color: #f18701; color: #ffffff;">Basketball</button></li>
+                <li><button class="btn" style="background-color: #003e1f; color: #ffffff;">Football</button></li>
+                <li><button class="btn" style="background-color: #d9d9d9; color: #000000;">F1</button></li>
+                <li><button class="btn" style="background-color: #6a040f; color: #ffffff;">Rugby</button></li>
+            </ul>
+        </aside>
+        
     </main>
+</div>
 
 </body>
 <script src="data.js"></script>
