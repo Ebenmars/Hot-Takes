@@ -6,7 +6,7 @@ const postList = document.querySelector("#posts-list");
 
 
 create_btn.addEventListener("click",function () {
-    postList.innerHTML = "";
+    // postList.innerHTML = "";
     if(form.classList.contains("hidden")){
         form.classList.remove("hidden");
         create_btn.textContent = "x";
@@ -16,9 +16,17 @@ create_btn.addEventListener("click",function () {
         create_btn.textContent = "+";
     }
 
-})
+});
 
-postList.innerHTML = "";
+const SECTIONS = [
+    { name:"Soccer", color: "#fefae0"},
+    { name:"Basketball", color:"#f18701"},
+    { name:"Football", color:"#003e1f"},
+    { name:"F1", color: "#d9d9d9"},
+    { name:"Rugby", color:"#6a040f"},
+ ];
+
+// postList.innerHTML = "";
 
 
 //Load data from Supabase
@@ -42,29 +50,66 @@ async function loadPosts() {
 }
 
 function createPostsList(dataArr) {
-    const htmlArr = dataArr.map((post) => {
+    const htmlArr = dataArr.map((post, index) => {
         // Create a new Date object from the timestamp
-        var date = new Date(post.created_at);
+        let date = new Date(post.created_at);
 
         // Format the date and time
-        var formattedDate = date.toLocaleDateString();
-        var formattedTime = date.toLocaleTimeString("en-US");
+        let formattedDate = date.toLocaleDateString();
+        let formattedTime = date.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});
 
-        return `<li class="post-on-feed">
-            <h6>
-                ${post.title}
-            </h6>
+        let backgroundColor = "#000000";
+        let textColor = "#ffffff";
+        let section = SECTIONS.find((section) => section.name === post.category);
+
+        if(section){
+            backgroundColor = section.color;
+        }
+        if(["Soccer","F1","Home"].includes(section.name)){
+            textColor = "#000000";
+            
+        }
+
+        return `<li class="post-on-feed" id="post-${index}" onclick="openModal(${index})">
+            <h6>${post.title}</h6>
             <span>${formattedDate} ${formattedTime}</span>
-            <span class="tag" style="background-color: #fefae0; color: #000000;">${post.description}</span>
+            <span class="tag" style="background-color:${backgroundColor}; color:${textColor};">${post.category}</span>
             <div class="vote-buttons">
-                <button><i class="fa-regular fa-thumbs-up"></i> <strong>100</strong></button>
-                <button><i class="fa-regular fa-thumbs-down"></i> <strong>14</strong></button>
+                <button><i class="fa-regular fa-thumbs-up"></i> <strong>${post.thumbsup}</strong></button>
+                <button><i class="fa-regular fa-thumbs-down"></i> <strong>${post.thumbsdown}</strong></button>
+            </div>
+            <div id="modal-${index}" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="close-${index}">×</span>
+                    <h6>${post.title}</h6>
+                    <p>${post.description}</p>
+                </div>
             </div>
         </li>`
     });
     const postsContainer = document.getElementById('posts-list');
     postsContainer.innerHTML = htmlArr.join('');
+
+    dataArr.forEach((post,index) =>{
+        document.getElementById(`close-${index}`).addEventListener("click", function (event){
+            //this is to prevent event from immedielty opening the page back up after closing it 
+            event.stopPropagation();
+            closeModal(index);
+        });
+    });
+    
 }
+
+
+function openModal(index){
+    document.getElementById(`modal-${index}`).style.display = "block";
+}
+
+function closeModal(index){
+    document.getElementById(`modal-${index}`).style.display = "none";
+}
+
+
 
 
 
