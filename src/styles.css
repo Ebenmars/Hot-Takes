@@ -253,7 +253,7 @@ ul {
 
 }
 
-/* The Modal (background) */
+
 .modal {
     display: none; 
     position: fixed; 
@@ -269,16 +269,16 @@ ul {
 }
 
 .modal-open {
-    display: block; /* Show the modal */
+    display: block;
 }
 
-/* Modal Content */
+
 .modal-content {
-    background-color: #ffffff;
+    background-color: #3f3f46;
     margin: auto;
     padding: 20px;
     width: 80%;
-    color: #000;
+    color: #ffffff;
     border-radius:20px;
 }
 

@@ -2,19 +2,13 @@ import "./styles.css";
 import CatagoryFilter from "./CatagoryFilter";
 import NewPostForm from "./NewPostForm";
 import PostFeed from "./PostFeed";
+import {useState} from "react";
 function App() {
 
-  const SECTIONS = [
-    { name:"Soccer", color: "fefae0"},
-    { name:"Basketball", color:"f18701"},
-    { name:"Football", color:"003e1f"},
-    { name:"F1", color: "d9d9d9"},
-    { name:"Rugby", color:"6a040f"},
- ];
- 
- 
+const appTitle = "Hot Takes";
 
-const appTitle = "Hot Takes"
+// the form is initially at false which means hidden
+const [showForm, setShowForm] = useState(false);
 
   return (
     <>
@@ -22,13 +16,17 @@ const appTitle = "Hot Takes"
       <div className="logo">
       <h1>{appTitle}</h1>
       </div>
-      <button className="btn" id="create-post">+</button>
+      {/* change state. if user clicks ones its true if they click again the state is now false */}
+      <button className="btn" id="create-post" onClick={() => setShowForm((show) => !show)}>+</button>
     </header>
 
-    <NewPostForm/>
-
+    {/* use state to show form if the sate is false dont show anything */}
+    {showForm ? <NewPostForm/> : null}
+    
     <main className="main">
+      {/* Component of the tags section */}
     <CatagoryFilter/>
+    {/* Component of the post feed */}
     <PostFeed/>
     </main>
     </>
