@@ -1,10 +1,13 @@
 const SECTIONS = [
-   { name:"Soccer", color: "fefae0"},
-   { name:"Basketball", color:"f18701"},
-   { name:"Football", color:"003e1f"},
-   { name:"F1", color: "d9d9d9"},
-   { name:"Rugby", color:"6a040f"},
+   { name:"Home", color: "#c5bb76"},
+   { name:"Soccer", color: "#fefae0"},
+   { name:"Basketball", color:"#f18701"},
+   { name:"Football", color:"#003e1f"},
+   { name:"F1", color: "#d9d9d9"},
+   { name:"Rugby", color:"#6a040f"},
 ];
+
+
 
 
 const defaultPosts = [
@@ -26,4 +29,7 @@ const defaultPosts = [
       thumbsUp: 20,
       thumbsDown: 10
    },
-]
+];
+
+export {SECTIONS};
+export{defaultPosts};
