@@ -80,7 +80,7 @@ function Post(
       className="post-on-feed"
       //when the user clicks on the post open the overlay
       id={`post-${index}`}
-      onClick={() => openModal(index)}
+      
     >
       <h6>{post.title}</h6>
       <span>
@@ -89,17 +89,26 @@ function Post(
       <span className="tag" style={{ backgroundColor, color: textColor }}>
         {post.category}
       </span>
-      <div className="vote-buttons">
-        <button>
-          <i className="fa-regular fa-thumbs-up"></i>{" "}
-          <strong>{post.thumbsUp}</strong>
-        </button>
-        <button>
-          <i className="fa-regular fa-thumbs-down"></i>{" "}
-          <strong>{post.thumbsDown}</strong>
-        </button>
-      
-      </div>
+      <div className="post-buttons">
+  <div className="other-buttons">
+    <button onClick={() => openModal(index)}>
+      <i className="fa-solid fa-bars" style={{color: "#ffffff"}}></i>
+    </button>
+    <button  className="comment-button" style={{marginRight:"50px"}}>
+      <i className="fa-regular fa-comment" style={{color: "#ffffff"}}></i>
+    </button>
+  </div>
+  <div className="thumbs-buttons">
+    <button>
+      <i className="fa-regular fa-thumbs-up"></i>{" "}
+      <strong>{post.thumbsUp}</strong>
+    </button>
+    <button>
+      <i className="fa-regular fa-thumbs-down"></i>{" "}
+      <strong>{post.thumbsDown}</strong>
+    </button>
+  </div>
+</div>
       {/* if the modelIndex is equal to the current index , show the overlay*/}
       {modalIndex === index && (
         <div
