@@ -1,8 +1,9 @@
+import {useEffect, useState} from "react";
+import supabase from "./supabase.js";
 import "./styles.css";
 import CatagoryFilter from "./CatagoryFilter";
 import NewPostForm from "./NewPostForm";
 import PostFeed from "./PostFeed";
-import {useState} from "react";
 import { defaultPosts } from "./data.js";
 
 
@@ -11,7 +12,8 @@ function App() {
 
 // the form is initially at false which means hidden
 const [showForm, setShowForm] = useState(false);
-const [posts, setPosts] = useState(defaultPosts);
+const [posts, setPosts] = useState(supabase);
+useEffect(function() {},[] )
 
   return (
     <>
