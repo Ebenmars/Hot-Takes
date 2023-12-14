@@ -3,6 +3,7 @@ import CatagoryFilter from "./CatagoryFilter";
 import NewPostForm from "./NewPostForm";
 import PostFeed from "./PostFeed";
 import {useState} from "react";
+import { defaultPosts } from "./data.js";
 
 
 function App() {
@@ -10,20 +11,20 @@ function App() {
 
 // the form is initially at false which means hidden
 const [showForm, setShowForm] = useState(false);
-
+const [posts, setPosts] = useState(defaultPosts);
 
   return (
     <>
     <Header show={showForm} setShowForm={setShowForm}/>
     {/* use state to show form if the sate is false dont show anything */}
-    {showForm ? <NewPostForm/> : null}
+    {showForm ? <NewPostForm setPosts={setPosts} setShowForm={setShowForm}/> : null}
     
     <main className="main">
     
       {/* Component of the tags section */}
     <CatagoryFilter/>
     {/* Component of the post feed */}
-    <PostFeed/>
+    <PostFeed posts={posts}/>
     </main>
     <footer>Me</footer>
     </>

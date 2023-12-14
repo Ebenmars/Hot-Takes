@@ -2,7 +2,8 @@ import React, { useState } from "react";
 // getting the section and default posts
 import { SECTIONS, defaultPosts } from "./data.js";
 
-function PostFeed() {
+function PostFeed({posts}) {
+ 
   // using state to open and close the overlay
   const [modalIndex, setModalIndex] = useState(null);
 
@@ -16,11 +17,10 @@ function PostFeed() {
     setModalIndex(null);
   };
 
-  const posts = defaultPosts;
 
 
   return (
-
+<section>
     <ul id="posts-list">
       {/* looping through the posts , index is the */}
       {posts.map((post, index) => {
@@ -59,6 +59,7 @@ function PostFeed() {
         );
       })}
     </ul>
+    </section>
   );
 }
 
@@ -73,6 +74,7 @@ function Post(
   modalIndex,
   closeModal
 ) {
+
   return (
     // create a post on the post feed
     <li
@@ -93,9 +95,6 @@ function Post(
   <div className="other-buttons">
     <button onClick={() => openModal(index)}>
       <i className="fa-solid fa-bars" style={{color: "#ffffff"}}></i>
-    </button>
-    <button  className="comment-button" style={{marginRight:"50px"}}>
-      <i className="fa-regular fa-comment" style={{color: "#ffffff"}}></i>
     </button>
   </div>
   <div className="thumbs-buttons">

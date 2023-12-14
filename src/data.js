@@ -1,5 +1,5 @@
 const SECTIONS = [
-   { name:"Home", color: "#c5bb76"},
+
    { name:"Soccer", color: "#fefae0"},
    { name:"Basketball", color:"#f18701"},
    { name:"Football", color:"#003e1f"},
