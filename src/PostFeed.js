@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 // getting the section and default posts
-import { SECTIONS, defaultPosts } from "./data.js";
+import { SECTIONS } from "./data.js";
+
+
+
 
 function PostFeed({posts}) {
  

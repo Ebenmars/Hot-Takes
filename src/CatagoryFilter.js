@@ -4,7 +4,7 @@ function CatagoryFilter() {
   return (
     <aside className="sidebar">
       <ul>
-      <li><button class="btn" style={{backgroundColor: "#c5bb76", color: "#000000", marginBottom: "20px"}}>Home</button></li>
+      <li><button className="btn" style={{backgroundColor: "#c5bb76", color: "#000000", marginBottom: "20px"}}>Home</button></li>
         {/* looping through the tags */}
         {SECTIONS.map((section) => (
           <li key={section.name}>
