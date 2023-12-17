@@ -1,11 +1,13 @@
 import { SECTIONS } from "./data.js";
 import { useState } from "react";
+import supabase from "./supabase";
 
 
 function NewPostForm({setPosts, setShowForm}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCatagory] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   //This is for the textarea
   function autoGrow(event) {
@@ -13,24 +15,27 @@ function NewPostForm({setPosts, setShowForm}) {
     event.target.style.height = event.target.scrollHeight + "px";
   }
 
-  function handleSumbit(event) {
+  async function handleSumbit(event) {
     event.preventDefault();
   
     if (title && description && category) {
-      const newPost = {
-        id: Math.floor(Math.random() * 1000000),
-        title,
-        created_at: new Date(),
-        description,
-        category,
-        thumbsUp: 0,
-        thumbsDown: 0
-      };
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
+      // const newPost = {
+      //   id: Math.floor(Math.random() * 1000000),
+      //   title,
+      //   created_at: new Date(),
+      //   description,
+      //   category,
+      //   thumbsUp: 0,
+      //   thumbsDown: 0
+      // };
+      setIsUploading(true);
+      const {data:newPost,error} = await supabase.from("posts").insert([{title,description,category}]).select();
+      setIsUploading(false);
+      if(!error) setPosts((prevPosts) => [newPost[0], ...prevPosts]);
       setTitle("");
       setDescription("");
       setCatagory("");
-      setShowForm(false);
+      // setShowForm(false);
     }
   }
   
@@ -52,21 +57,23 @@ function NewPostForm({setPosts, setShowForm}) {
         value={description}
         style={{ resize: "none" }}
         onInput={autoGrow}
+        disabled={isUploading}
         onChange={(eventObj) => setDescription(eventObj.target.value)}
       ></textarea>
       <span>{description.split(" ").length - 1}</span>
       <select
         value={category}
-        onChange={(eventObj) => setCatagory(eventObj.target.value)}
+        disabled={isUploading}
+        onChange={(eventObj) => setCatagory(eventObj.target.value) }
       >
         <option value="">Choose Topic</option>
         {SECTIONS.map((section) => (
-          <option key={section.name} value={section.name}>
+          <option key={section.name} value={section.name} >
             {section.name}
           </option>
         ))}
       </select>
-      <button className="btn">Post</button>
+      <button className="btn" disabled={isUploading}>Post</button>
     </form>
   );
 }

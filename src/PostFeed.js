@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 // getting the section and default posts
 import { SECTIONS } from "./data.js";
+import supabase from "./supabase";
 
 
 
+function PostFeed({posts, setPosts}) {
 
-function PostFeed({posts}) {
- 
   // using state to open and close the overlay
   const [modalIndex, setModalIndex] = useState(null);
 
@@ -21,12 +21,17 @@ function PostFeed({posts}) {
   };
 
 
+  if(posts.length === 0){
+    return (<h2>No Posts</h2>
+    );
+  }
+
 
   return (
 <section>
     <ul id="posts-list">
       {/* looping through the posts , index is the */}
-      {posts.map((post, index) => {
+      { posts && posts.map((post, index) => {
         // formating the data and time
         let date = new Date(post.created_at);
         let formattedDate = date.toLocaleDateString();
@@ -51,6 +56,7 @@ function PostFeed({posts}) {
 
         return Post(
           post,
+          setPosts,
           index,
           openModal,
           formattedDate,
@@ -60,6 +66,7 @@ function PostFeed({posts}) {
           modalIndex,
           closeModal
         );
+        
       })}
     </ul>
     </section>
@@ -68,6 +75,7 @@ function PostFeed({posts}) {
 
 function Post(
   post,
+  setPosts,
   index,
   openModal,
   formattedDate,
@@ -77,6 +85,19 @@ function Post(
   modalIndex,
   closeModal
 ) {
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
+
+  async function handleVotes(columnName){
+    setIsUpdating(true);
+  const {data:updatedPost, error } = await supabase.from("posts").update({[columnName]: post[columnName] + 1 }).eq("id", post.id)
+    .select();
+    setIsUpdating(false);
+    if(!error) setPosts((posts) => posts.map(p => p.id === post.id ? updatedPost[0] : p));
+  }
+
+  
 
   return (
     // create a post on the post feed
@@ -101,11 +122,11 @@ function Post(
     </button>
   </div>
   <div className="thumbs-buttons">
-    <button>
+    <button onClick={() => handleVotes("thumbsUp")} disabled={isUpdating}>
       <i className="fa-regular fa-thumbs-up"></i>{" "}
       <strong>{post.thumbsUp}</strong>
     </button>
-    <button>
+    <button  onClick={() => handleVotes("thumbsDown")} disabled={isUpdating}>
       <i className="fa-regular fa-thumbs-down"></i>{" "}
       <strong>{post.thumbsDown}</strong>
     </button>

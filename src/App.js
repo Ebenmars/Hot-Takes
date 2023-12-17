@@ -5,22 +5,42 @@ import CatagoryFilter from "./CatagoryFilter";
 import NewPostForm from "./NewPostForm";
 import PostFeed from "./PostFeed";
 
-
 function App() {
   // the form is initially at false which means hidden
   const [showForm, setShowForm] = useState(false);
   //used to define posts
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("Home");
 
-  //using  this to get the posts from the database 
+  //using  this to get the posts from the database
   useEffect(function () {
     async function getPosts() {
-      const { data: posts, error } = await supabase.from("posts").select("*");
+      setIsLoading(true);
+
+      let query = supabase.from("posts").select("*");
+
+      if (currentCategory !== "Home") {
+        query = query.eq("category", currentCategory);
+      }
+      //I will make a dropdown menu and user can pick if they want most recent posts or if they want the votes with the most upvots
+      const { data: posts, error } = await query
+        // .eq("category","Home")
+        .order("thumbsUp", { ascending: false })
+        .limit(1000);
+
       //setting the posts
+      if (!error) {
+        setPosts(posts);
+      } else {
+        alert("Cant get data");
+      }
       setPosts(posts);
+      //after the data has loaded
+      setIsLoading(false);
     }
     getPosts();
-  }, []);
+  }, [currentCategory]);
 
   return (
     <>
@@ -32,12 +52,25 @@ function App() {
 
       <main className="main">
         {/* Component of the tags section */}
-        <CatagoryFilter />
-        {/* Component of the post feed,this will render the posts we got from the database to update the state */}
-        <PostFeed posts={posts} />
+        <CatagoryFilter setCurrentCategory={setCurrentCategory} />
+        {/* if the data is loading show the message, else show the posts   */}
+        {isLoading ? <Loader /> : <PostFeed posts={posts}  setPosts={setPosts}/>}
       </main>
       <footer>Me</footer>
     </>
+  );
+}
+function Loader() {
+  return (
+    <p
+      style={{
+        textTransform: "uppercase",
+        textAlign: "center",
+        marginTop: "100px",
+      }}
+    >
+      Loading... Please Wait
+    </p>
   );
 }
 

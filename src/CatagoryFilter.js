@@ -1,10 +1,10 @@
 import { SECTIONS } from "./data.js";
 
-function CatagoryFilter() {
+function CatagoryFilter({setCurrentCategory}) {
   return (
     <aside className="sidebar">
       <ul>
-      <li><button className="btn" style={{backgroundColor: "#c5bb76", color: "#000000", marginBottom: "20px"}}>Home</button></li>
+      <li><button className="btn" onClick={() => setCurrentCategory("Home")} style={{backgroundColor: "#c5bb76", color: "#000000", marginBottom: "20px"}}>Home</button></li>
         {/* looping through the tags */}
         {SECTIONS.map((section) => (
           <li key={section.name}>
@@ -21,6 +21,7 @@ function CatagoryFilter() {
                     ? "#000000"
                     : "#FFFFFF",
               }}
+              onClick={() => setCurrentCategory(section.name)}
             >
               {section.name}
             </button>
