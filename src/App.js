@@ -56,7 +56,6 @@ function App() {
         {/* if the data is loading show the message, else show the posts   */}
         {isLoading ? <Loader /> : <PostFeed posts={posts}  setPosts={setPosts}/>}
       </main>
-      <footer>Me</footer>
     </>
   );
 }
